@@ -1,0 +1,23 @@
+.profile__career {
+    padding-top: 5px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    margin: 0;
+    color: #FFFFFF;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 282px;
+}
+
+@media screen and (max-width:940px) {
+    .profile__career {
+        
+        font-size: 14px;
+        line-height: 17px;
+        text-align: center;
+        padding: 14px 19px 0 19px;
+    }
+}

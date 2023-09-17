@@ -1,0 +1,15 @@
+.card__trash {
+    display: none;
+    width: 18px;
+    height: 19px;
+    background-image: url(../../../images/Trash.svg);
+    background-color: transparent;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    
+}
