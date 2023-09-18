@@ -9,7 +9,7 @@ function Card(props) {
     return (
         <li className="card" onClick={handleClick}>
             <button className="card__trash opacity" type="button" aria-label="удалить карточку"></button>
-            <img src={props.link} alt="#" className="card__image" />
+            <img src={props.link} alt={props.name} className="card__image" />
             <div className="card__info">
                 <h2 className="card__name">{props.name}</h2>
                 <div className="card__like-wrapper">
