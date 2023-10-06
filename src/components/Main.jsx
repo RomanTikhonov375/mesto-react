@@ -1,39 +1,19 @@
 import React from "react";
-import PopupWithForm from "./PopupWithForm.jsx";
-import ImagePopup from "./ImagePopup.jsx";
-import api from "../utils/Api.js";
 import Card from "./Card.jsx";
-import {useEffect, useState} from 'react';
+import {useContext} from 'react';
+import { CurrentUserContext } from '../../src/context/CurrentUserContext';
 
 function Main(props) {
 
-  const [userName, setUserName] = useState('');
-  const [userDescription, setUserDescription] = useState('');
-  const [userAvatar, setUserAvatar] = useState('');
-  const [cards, setCards] = useState([]);
+  const currentUser = useContext(CurrentUserContext);
 
-  useEffect(() => {
-    api.getUserInfo()
-      .then(res => {
-        setUserName(res.name);
-        setUserDescription(res.about);
-        setUserAvatar(res.avatar);
-      })
-      .catch(console.error);
-  }, [])
 
-  useEffect(() => {
-    api.getInitialCards()
-      .then(res =>
-        setCards(res))
-        .catch(console.error);
-  }, []);
 
   return (
     <main className="main-page">
       <section className="profile">
         <div className="profile__avatar-container">
-          <div className="profile__avatar" style={{ backgroundImage: `url(${userAvatar})` }} ></div>
+          <div className="profile__avatar" style={{ backgroundImage: `url(${currentUser.avatar})` }} ></div>
           <div className="profile__iconAvatar-wrapper" onClick={props.onEditAvatar}>
             <div className="profile__iconAvatar"  ></div>
           </div>
@@ -43,11 +23,11 @@ function Main(props) {
 
         <div className="profile__info">
           <div className="profile__user-name-wrapper">
-            <h1 className="profile__user-name">{userName}</h1>
+            <h1 className="profile__user-name">{currentUser.name}</h1>
             <button className="profile__edit-button opacity" type="button"
               aria-label="редактировать профиль" onClick={props.onEditProfile}></button>
           </div>
-          <p className="profile__career">{userDescription}</p>
+          <p className="profile__career">{currentUser.about}</p>
         </div>
 
         <button className="profile__add-button opacity" type="button" aria-label="добавить карточку" onClick={props.onAddPlace}></button>
@@ -55,9 +35,16 @@ function Main(props) {
       <section className="cards" aria-label="Фото галерея">
 
         <ul className="cards-list">
-          {cards.map(card => {
+          {props.cards.map(card => {
+            
             return (
               < Card
+                onTrashClick={props.onTrashClick}
+                onCardDelete={props.onCardDelete}
+                setCards={props.setCards}
+                _id={card._id}
+                handleLikeClick = {props.onCardLike}
+                ownerId = {card.owner._id}
                 key={card._id}
                 link={card.link}
                 name={card.name}

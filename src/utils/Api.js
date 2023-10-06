@@ -36,26 +36,26 @@
     }
 
     //Метод для обновления данных пользователя на сервере
-    editingProfile(inputValues) {
+    editingProfile({name, about}) {
         return this._request(`/users/me`, {
             headers: this.headers,
             method: 'PATCH',
             body: JSON.stringify({
-                name: inputValues.name,
-                about: inputValues.about
+                name: name,
+                about: about
             })
         })
         }
 
     //Метод для добавления карточки пользователя на сервер
-    setUserCard(x, y) {
+    setUserCard({name, link}) {
         return this._request(`/cards`, {
             headers: this.headers,
             method: 'POST',
                 headers: this.headers,
                 body: JSON.stringify({
-                    name: x,
-                    link: y
+                    name: name,
+                    link: link
                 })
         })
         }
@@ -69,20 +69,19 @@
         }
 
     //Метод для добавления лайка пользователя на сервер
-    setLikeCard(id) {
-        return this._request(`/cards/${id}/likes`, {
-            headers: this.headers,
-            method: 'PUT',
-        })
+    changeLikeCardStatus(id , isLiked) {
+        if (!isLiked) 
+            { return this._request(`/cards/${id}/likes`, {
+                headers: this.headers,
+             method: 'PUT',
+         }) } else  {
+            return this._request(`/cards/${id}/likes`, {
+                headers: this.headers,
+                method: 'DELETE',
+            })
+         }
         }
 
-    //Метод для удаления лайка пользователя с сервера
-    removeLikeCard(id) {
-        return this._request(`/cards/${id}/likes`, {
-            headers: this.headers,
-            method: 'DELETE',
-        })
-        }
 
     //Метод для изменения аватара пользователя на сервере
     setAvatar(url) {
